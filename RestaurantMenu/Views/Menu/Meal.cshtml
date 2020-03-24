@@ -1,0 +1,85 @@
+﻿@model List<RestaurantMenu.Models.Meal>
+@addTagHelper *,Microsoft.AspNetCore.MVC.TagHelpers
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>Restaurant Menu</h1>
+<hr>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="list-group">
+            @foreach (MealType t in MealType.ListAllActiveTypes())
+            {
+                if (t.IsActive)
+                {
+                    <a class="list-group-item" href="/menu/@MealType.GetTypeOfMeal(t.Id).ToLower()/meals">@MealType.GetTypeOfMeal(t.Id)</a>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-md-9">
+        <p class="col-md-12" style="margin-top:15px;">
+            <a class="btn btn-primary float-left" href="/menu/create">Create New</a>
+            <a class="btn btn-info float-right" href="/menu/interests">See interests</a>
+        </p><br /><br /><br>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Ingredients
+                    </th>
+                    <th>
+                        Vegeterian
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <td>
+                            @RestaurantMenu.Models.MealType.GetTypeOfMeal(m.MealTypeId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => m.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => m.Price)
+                        </td>
+                        <td>
+                            @foreach (var i in m.Ingredients)
+                            {
+                                <span>@i.Name <br /></span>
+                            }
+                        </td>
+                        <td>
+                            @if (m.IsVegeterian)
+                            {<span>Yes</span> }
+                            else
+                            { <span>No</span>}
+                        </td>
+                        <td>
+                            <form method="post" asp-controller="Menu" asp-action="Delete" asp-route-id="@m.Name">
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

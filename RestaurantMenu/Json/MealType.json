@@ -1,0 +1,37 @@
+[
+	{
+		"Id" : 1,
+		"Type" : "Breakfast",
+		"IsActive" : "true"
+	},
+	{
+		"Id" : 2,
+		"Type" : "Lunch",
+		"IsActive" : true
+	},
+	{
+		"Id" : 3,
+		"Type" : "Pasta",
+		"IsActive" : true
+	},
+	{
+		"Id" : 4,
+		"Type" : "Salad",
+		"IsActive" : true
+	},
+	{
+		"Id" : 5,
+		"Type" : "Fish",
+		"IsActive" : true
+	},
+	{
+		"Id" : "6",
+		"Type" : "Soup",
+		"IsActive" : true
+	},
+	{
+		"Id" : 7,
+		"Type" : "Dessert",
+		"IsActive" : true
+	}
+]

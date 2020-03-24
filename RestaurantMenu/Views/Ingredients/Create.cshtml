@@ -1,0 +1,33 @@
+﻿@model RestaurantMenu.Models.Ingredient
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <h1>
+        Create
+        <a class="btn btn-outline-dark float-right" asp-action="Meal">Back to List</a>
+    </h1>
+
+<hr />
+<div class="row">
+
+    <div class="col-md-8">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" hidden class="control-label"></label>
+                <input asp-for="Id" value="@FillModels.countIngredients" hidden class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

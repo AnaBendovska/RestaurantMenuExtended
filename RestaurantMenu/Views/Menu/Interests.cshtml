@@ -1,0 +1,52 @@
+﻿@model List<RestaurantMenu.Models.AuditMealType>
+@{
+    ViewData["Title"] = "Interests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Interests</h1>
+<hr>
+<div class="row">
+    <div class="col-md-3">
+        <div class="list-group">
+            @foreach (MealType t in MealType.ListAllActiveTypes())
+            {
+                if (t.IsActive)
+                {
+                    <a class="list-group-item" href="/menu/@MealType.GetTypeOfMeal(t.Id).ToLower()/interests">@MealType.GetTypeOfMeal(t.Id)</a>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-md-9">
+        <p class="col-md-12" style="margin-top:15px;">
+            <a class="btn btn-outline-dark float-left" href="/menu/meals">Back to Menu</a>
+        </p><br /><br /><br>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Time
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <td>
+                            @m.MealType
+                        </td>
+                        <td>
+                            <span>@m.Time.Hour : @m.Time.Minute : @m.Time.Second</span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

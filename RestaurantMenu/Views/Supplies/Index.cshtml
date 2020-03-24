@@ -1,0 +1,95 @@
+﻿@model RestaurantMenu.Models.SupplieIndex
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>
+    List of Supplies
+    <a class="btn btn-info float-right" href="/menu/ingredients">List of Ingredients</a>
+</h1>
+
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>
+                        Ingredient
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Expiration Date
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model.supplies)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => m.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => m.I.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => m.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => m.DateExpire)
+                        </td>
+                        <td>
+
+                            <a class="btn btn-success" asp-action="Edit" asp-route-id="@m.Id" asp-route-ingredient="@m.I.Name">Edit</a>
+                        </td>
+                        <td>
+                            <form method="post" asp-controller="Supplies" asp-action="Delete" asp-route-id="@m.Id">
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr /><br />
+<div class="row">
+    <div class="col-md-8">
+        <h3>Create new</h3>
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="s.Id" hidden class="control-label"></label>
+                <input asp-for="s.Id" value="@FillModels.countSupplies" hidden class="form-control" />
+                <span asp-validation-for="s.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="s.Ingredient" class="control-label"></label>
+                <select class="custom-select" asp-for="s.Ingredient" asp-items="(new SelectList(Ingredient.GetIng()))"></select>
+                <span asp-validation-for="s.Ingredient" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="s.Quantity" class="control-label"></label>
+                <input asp-for="s.Quantity" type="number" class="form-control" />
+                <span asp-validation-for="s.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="s.DateExpire" class="control-label"></label>
+                <input asp-for="s.DateExpire" class="form-control" />
+                <span asp-validation-for="s.DateExpire" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

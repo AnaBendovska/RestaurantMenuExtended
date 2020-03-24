@@ -1,0 +1,55 @@
+﻿@model RestaurantMenu.Models.Meal
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<hr />
+<div class="row">
+
+    <div class="col-md-12">
+        <a class="btn btn-outline-dark" asp-action="Meal">Back to List</a>
+    </div>
+
+    <div class="col-md-8">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredients" class="control-label"></label>
+                <select multiple class="custom-select" asp-for="IList" asp-items="(new SelectList(Ingredient.GetIng()))"></select>
+                <span asp-validation-for="IList" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MealTypeId" class="control-label"></label><br />
+                @foreach (MealType t in FillModels.FillMealTypes())
+                {
+                    <div class="col-md-4"><input id="@t.Id" asp-for="MealTypeId" type="radio" value="@t.Id" /> @t.Type</div>
+                }
+                <span asp-validation-for="MealTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsVegeterian" /> @Html.DisplayNameFor(model => model.IsVegeterian)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
